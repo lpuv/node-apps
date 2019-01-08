@@ -26,9 +26,6 @@
                     {% else %}
                         <li><a href="{{ url_for('login') }}">Log in</a></li>
                     {% endif %}
-                    {% if admin %}
-                        <li><a href="{{ url_for('clear') }}">Clear all messages</li>
-                    {% endif %}
                 </ul>
             </div>
         </nav>

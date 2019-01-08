@@ -8,7 +8,6 @@ from werkzeug.security import check_password_hash
 from datetime import datetime
 from flask_migrate import Migrate
 
-
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -27,21 +26,6 @@ migrate = Migrate(app, db)
 app.secret_key = "meowcatnip"
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-import mysql.connector
-
-mydb = mysql.connector.connect(
-  host="pythonUser111.mysql.pythonanywhere-services.com",
-  user="pythonUser111",
-  passwd="@loXlh10",
-  database="pythonUser111$comments"
-)
-
-mycursor = mydb.cursor()
-
-def deleteAll():
-    mycursor.execute("DELETE from comments;")
-    myresult = mycursor.fetchall()
 
 class User(UserMixin, db.Model):
 
@@ -79,10 +63,7 @@ class Comment(db.Model):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        if current_user == "leo" or current_user == "root":
-            return render_template("main_page.html", comments=Comment.query.all(), admin=True)
-        else:
-            return render_template("main_page.html", comments=Comment.query.all(), admin=False)
+        return render_template("main_page.html", comments=Comment.query.all())
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
     comment = Comment(content=request.form["contents"], commenter=current_user)
@@ -110,10 +91,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
-
-@app.route("/clear/", methods=["GET", "POST"])
-def clear():
-    if request.method == "POST":
-        deleteAll()
     return redirect(url_for('index'))
