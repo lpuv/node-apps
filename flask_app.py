@@ -64,8 +64,6 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.filter_by(username=user_id).first()
 
-
-
 class Comment(db.Model):
 
     __tablename__ = "comments"
