@@ -55,6 +55,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(4096))
     posted = db.Column(db.DateTime, default=datetime.now)
+    commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    commenter = db.relationship('User', foreign_keys=commenter_id)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
