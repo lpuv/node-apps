@@ -64,7 +64,7 @@ def index():
         return render_template("main_page.html", comments=Comment.query.all())
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
-    comment = Comment(content=request.form["contents"])
+    comment = Comment(content=request.form["contents"], commenter=current_user)
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('index'))
