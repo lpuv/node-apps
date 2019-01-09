@@ -34,6 +34,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
+    real_name = db.Column(db.String(128))
+    is_banned = db.Column(db.String(128))
 
 
     def check_password(self, password):
@@ -42,6 +44,11 @@ class User(UserMixin, db.Model):
 
     def get_id(self):
         return self.username
+
+    def get_ban(self):
+        if self.is_banned == "True":
+            return True
+        return False
 
 
 @login_manager.user_loader
@@ -67,8 +74,9 @@ def index():
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
     comment = Comment(content=request.form["contents"], commenter=current_user)
-    db.session.add(comment)
-    db.session.commit()
+    if not current_user.get_ban():
+        db.session.add(comment)
+        db.session.commit()
     return redirect(url_for('index'))
 
 @app.route("/login/", methods=["GET", "POST"])
