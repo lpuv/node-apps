@@ -41,7 +41,7 @@
                     <small>
                         Posted
                         {% if comment.posted %}
-                            {{ comment.posted.strftime("%A, %d %B %Y at %H:%M") }}
+                            {{ comment.posted.strftime("%A, %B %d %Y at %H:%M") }}
                         {% else %}
                             at an unknown time
                         {% endif %}

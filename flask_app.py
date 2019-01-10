@@ -6,8 +6,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_required, login_user, LoginManager, logout_user, UserMixin, current_user
 from werkzeug.security import check_password_hash
 from datetime import datetime
+import pytz
 from flask_migrate import Migrate
 
+def d():
+    # Current time in UTC
+    now_utc = datetime.now(pytz.timezone('UTC'))
+    #print(now_utc.strftime(format))
+    # Convert to Asia/Kolkata time zone
+    now_losA = now_utc.astimezone(pytz.timezone('US/Pacific'))
+    return now_losA
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -63,9 +71,10 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(4096))
-    posted = db.Column(db.DateTime, default=datetime.now)
+    posted = db.Column(db.DateTime, default=d)
     commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     commenter = db.relationship('User', foreign_keys=commenter_id)
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
