@@ -8,5 +8,7 @@
   },
   "author": "Gamer4life Puvilland",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "http": "0.0.0"
+  }
 }
