@@ -1,0 +1,18 @@
+{
+  "name": "simple-socket-chat",
+  "version": "1.0.0",
+  "description": "A simple SocketIO chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.com/gamer4life1/node-apps"
+  },
+  "author": "Gamer4life Puvilland",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
