@@ -8,6 +8,10 @@
   },
   "author": "Gamer4life Puvilland",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.com/gamer4life1/node-apps"
+  },
   "dependencies": {
     "http": "0.0.0"
   }
